@@ -98,6 +98,7 @@ export default function ProfilePhotoUploader({ onClose }: ProfilePhotoUploaderPr
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            aria-label="Fermer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -107,13 +108,17 @@ export default function ProfilePhotoUploader({ onClose }: ProfilePhotoUploaderPr
         <div className="flex flex-col items-center mb-6">
           <div className="relative group">
             <img
-              src={previewImage || 'https://api.dicebear.com/7.x/avataaars/svg?seed=default'}
+              src={
+                previewImage ||
+                "https://api.dicebear.com/7.x/avataaars/svg?seed=default"
+              }
               alt="Profile preview"
               className="w-40 h-40 rounded-full border-4 border-blue-100 dark:border-blue-900 object-cover"
             />
             <button
               onClick={() => fileInputRef.current?.click()}
               className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+              aria-label="Changer la photo"
             >
               <Camera className="w-8 h-8 text-white" />
             </button>

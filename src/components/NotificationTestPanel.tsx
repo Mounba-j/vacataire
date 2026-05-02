@@ -63,58 +63,59 @@ export default function NotificationTestPanel() {
             <button
               onClick={() => setIsOpen(false)}
               className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
+              aria-label="Fermer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
-          
+
           <div className="space-y-2 text-sm">
             <button
-              onClick={() => handleTestNotification('message')}
+              onClick={() => handleTestNotification("message")}
               className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 text-left transition-colors"
             >
               <MessageSquare className="w-4 h-4 text-blue-500" />
               Nouveau message
             </button>
-            
+
             <button
-              onClick={() => handleTestNotification('offre')}
+              onClick={() => handleTestNotification("offre")}
               className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 text-left transition-colors"
             >
               <Briefcase className="w-4 h-4 text-green-500" />
               Nouvelle offre
             </button>
-            
-            {user.role === 'ecole' && (
+
+            {user.role === "ecole" && (
               <button
-                onClick={() => handleTestNotification('candidature')}
+                onClick={() => handleTestNotification("candidature")}
                 className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 text-left transition-colors"
               >
                 <Briefcase className="w-4 h-4 text-purple-500" />
                 Nouvelle candidature
               </button>
             )}
-            
-            {(user.role === 'enseignant' || user.role === 'ecole') && (
+
+            {(user.role === "enseignant" || user.role === "ecole") && (
               <button
-                onClick={() => handleTestNotification('forum')}
+                onClick={() => handleTestNotification("forum")}
                 className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 text-left transition-colors"
               >
                 <Users className="w-4 h-4 text-orange-500" />
                 Réponse au forum
               </button>
             )}
-            
+
             <button
-              onClick={() => handleTestNotification('actualite')}
+              onClick={() => handleTestNotification("actualite")}
               className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-cyan-50 dark:hover:bg-cyan-900/20 text-left transition-colors"
             >
               <Newspaper className="w-4 h-4 text-cyan-500" />
               Nouvelle actualité
             </button>
-            
+
             <button
-              onClick={() => handleTestNotification('custom')}
+              onClick={() => handleTestNotification("custom")}
               className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900/20 text-left transition-colors"
             >
               <Bell className="w-4 h-4 text-gray-500" />

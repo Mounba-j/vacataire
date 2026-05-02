@@ -55,12 +55,14 @@ export default function CandidaturesList({ offreId, offreTitre, onClose }: Candi
             <h2 className="mb-2">Candidatures reçues</h2>
             <p className="text-gray-600 dark:text-gray-300">{offreTitre}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              {candidatures.length} candidature{candidatures.length > 1 ? 's' : ''}
+              {candidatures.length} candidature
+              {candidatures.length > 1 ? "s" : ""}
             </p>
           </div>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            aria-label="Fermer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -91,7 +93,9 @@ export default function CandidaturesList({ offreId, offreTitre, onClose }: Candi
                           {candidature.enseignantEmail}
                         </p>
                       </div>
-                      <span className={`badge ${getStatutColor(candidature.statut)}`}>
+                      <span
+                        className={`badge ${getStatutColor(candidature.statut)}`}
+                      >
                         {getStatutLabel(candidature.statut)}
                       </span>
                     </div>
@@ -100,7 +104,10 @@ export default function CandidaturesList({ offreId, offreTitre, onClose }: Candi
                     </p>
                     <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                       <Calendar className="w-3 h-3" />
-                      Postulé le {new Date(candidature.datePostulation).toLocaleDateString('fr-FR')}
+                      Postulé le{" "}
+                      {new Date(candidature.datePostulation).toLocaleDateString(
+                        "fr-FR",
+                      )}
                     </div>
                   </div>
                   <button
@@ -132,13 +139,16 @@ export default function CandidaturesList({ offreId, offreTitre, onClose }: Candi
               <div className="flex justify-between items-start mb-6">
                 <div>
                   <h3 className="mb-2">{selectedCandidature.enseignantNom}</h3>
-                  <span className={`badge ${getStatutColor(selectedCandidature.statut)}`}>
+                  <span
+                    className={`badge ${getStatutColor(selectedCandidature.statut)}`}
+                  >
                     {getStatutLabel(selectedCandidature.statut)}
                   </span>
                 </div>
                 <button
                   onClick={() => setSelectedCandidature(null)}
                   className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+                  aria-label="Fermer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -150,7 +160,10 @@ export default function CandidaturesList({ offreId, offreTitre, onClose }: Candi
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                       <Mail className="w-4 h-4" />
-                      <a href={`mailto:${selectedCandidature.enseignantEmail}`} className="hover:text-[#E63946]">
+                      <a
+                        href={`mailto:${selectedCandidature.enseignantEmail}`}
+                        className="hover:text-[#E63946]"
+                      >
                         {selectedCandidature.enseignantEmail}
                       </a>
                     </div>
@@ -164,10 +177,12 @@ export default function CandidaturesList({ offreId, offreTitre, onClose }: Candi
                 <div>
                   <h4 className="mb-2">Date de postulation</h4>
                   <p className="text-gray-600 dark:text-gray-300">
-                    {new Date(selectedCandidature.datePostulation).toLocaleDateString('fr-FR', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
+                    {new Date(
+                      selectedCandidature.datePostulation,
+                    ).toLocaleDateString("fr-FR", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
                     })}
                   </p>
                 </div>
@@ -179,17 +194,21 @@ export default function CandidaturesList({ offreId, offreTitre, onClose }: Candi
                   </p>
                 </div>
 
-                {selectedCandidature.statut === 'en_attente' && (
+                {selectedCandidature.statut === "en_attente" && (
                   <div className="flex gap-3 pt-4">
                     <button
-                      onClick={() => handleUpdateStatut(selectedCandidature.id, 'refusee')}
+                      onClick={() =>
+                        handleUpdateStatut(selectedCandidature.id, "refusee")
+                      }
                       className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors font-medium"
                     >
                       <X className="w-5 h-5" />
                       Refuser
                     </button>
                     <button
-                      onClick={() => handleUpdateStatut(selectedCandidature.id, 'acceptee')}
+                      onClick={() =>
+                        handleUpdateStatut(selectedCandidature.id, "acceptee")
+                      }
                       className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors font-medium"
                     >
                       <Check className="w-5 h-5" />

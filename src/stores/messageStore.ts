@@ -120,7 +120,7 @@ const mockMessages: Message[] = [
     expediteurNom: 'Marie Dupont',
     expediteurAvatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=marie',
     expediteurRole: 'enseignant',
-    contenu: "Bonjour Sophie, je serais ravie d'aider votre fille. Je suis disponible les mercredis après-midi et les samedis. Mon tarif est de 45 €/h.",
+    contenu: "Bonjour Sophie, je serais ravie d'aider votre fille. Je suis disponible les mercredis après-midi et les samedis. Mon tarif est de 45 Cfa/h.",
     dateEnvoi: '2026-01-29T10:10:00',
     lu: true,
   },

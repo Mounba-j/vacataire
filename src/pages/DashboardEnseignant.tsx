@@ -1,11 +1,22 @@
-import { useState } from 'react';
-import { Search, FileText, Newspaper, MapPin, Clock, Euro, Briefcase, CheckCircle, XCircle, Edit } from 'lucide-react';
-import { useAuthStore } from '../stores/authStore';
-import DashboardLayout from '../components/DashboardLayout';
-import ActualitesPanel from '../components/ActualitesPanel';
-import CVUploader from '../components/CVUploader';
-import ProfileEditor from '../components/ProfileEditor';
-import { useOffreStore } from '../stores/offreStore';
+import { useState } from "react";
+import {
+  Search,
+  FileText,
+  Newspaper,
+  MapPin,
+  Clock,
+  Tag,
+  Briefcase,
+  CheckCircle,
+  XCircle,
+  Edit,
+} from "lucide-react";
+import { useAuthStore } from "../stores/authStore";
+import DashboardLayout from "../components/DashboardLayout";
+import ActualitesPanel from "../components/ActualitesPanel";
+import CVUploader from "../components/CVUploader";
+import ProfileEditor from "../components/ProfileEditor";
+import { useOffreStore } from "../stores/offreStore";
 
 interface Offre {
   id: number;
@@ -24,41 +35,42 @@ interface Offre {
 const mockOffres = [
   {
     id: 1,
-    titre: 'Professeur de Mathématiques',
-    ecoleNom: 'Lycée Victor Hugo',
-    matiere: 'Mathématiques',
-    niveau: 'Terminale',
-    ville: 'Paris',
-    type: 'CDD - 6 mois',
-    dateDebut: '2026-02-01',
-    tarif: '45 €/h',
-    description: 'Nous recherchons un professeur de mathématiques pour des classes de Terminale S.',
+    titre: "Professeur de Mathématiques",
+    ecoleNom: "Lycée Victor Hugo",
+    matiere: "Mathématiques",
+    niveau: "Terminale",
+    ville: "Paris",
+    type: "CDD - 6 mois",
+    dateDebut: "2026-02-01",
+    tarif: "45 Cfa/h",
+    description:
+      "Nous recherchons un professeur de mathématiques pour des classes de Terminale S.",
     candidatures: 2,
   },
   {
     id: 2,
-    titre: 'Enseignant Physique-Chimie',
-    ecoleNom: 'Collège Jean Moulin',
-    matiere: 'Physique-Chimie',
-    niveau: '3ème',
-    ville: 'Lyon',
-    type: 'Vacation',
-    dateDebut: '2026-02-15',
-    tarif: '40 €/h',
-    description: 'Remplacement pour congé maternité, classes de 3ème.',
+    titre: "Enseignant Physique-Chimie",
+    ecoleNom: "Collège Jean Moulin",
+    matiere: "Physique-Chimie",
+    niveau: "3ème",
+    ville: "Lyon",
+    type: "Vacation",
+    dateDebut: "2026-02-15",
+    tarif: "40 Cfa/h",
+    description: "Remplacement pour congé maternité, classes de 3ème.",
     candidatures: 0,
   },
   {
     id: 3,
-    titre: 'Prof de Français',
-    ecoleNom: 'Lycée Pasteur',
-    matiere: 'Français',
-    niveau: 'Seconde',
-    ville: 'Marseille',
-    type: 'CDD - 3 mois',
-    dateDebut: '2026-03-01',
-    tarif: '42 €/h',
-    description: 'Enseignement du français pour classes de Seconde générale.',
+    titre: "Prof de Français",
+    ecoleNom: "Lycée Pasteur",
+    matiere: "Français",
+    niveau: "Seconde",
+    ville: "Marseille",
+    type: "CDD - 3 mois",
+    dateDebut: "2026-03-01",
+    tarif: "42 Cfa/h",
+    description: "Enseignement du français pour classes de Seconde générale.",
     candidatures: 1,
   },
 ];
@@ -66,38 +78,41 @@ const mockOffres = [
 const mockActualites = [
   {
     id: 1,
-    titre: 'Nouvelle fonctionnalité: Chat en temps réel',
-    date: '2026-01-20',
-    type: 'info',
+    titre: "Nouvelle fonctionnalité: Chat en temps réel",
+    date: "2026-01-20",
+    type: "info",
   },
   {
     id: 2,
-    titre: 'Webinaire: Comment optimiser son profil',
-    date: '2026-01-18',
-    type: 'event',
+    titre: "Webinaire: Comment optimiser son profil",
+    date: "2026-01-18",
+    type: "event",
   },
   {
     id: 3,
-    titre: 'Rappel: Mise à jour de votre CV',
-    date: '2026-01-15',
-    type: 'reminder',
+    titre: "Rappel: Mise à jour de votre CV",
+    date: "2026-01-15",
+    type: "reminder",
   },
 ];
 
 export default function DashboardEnseignant() {
   const { user } = useAuthStore();
   const { offres, addCandidature } = useOffreStore();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [disponible, setDisponible] = useState(user?.profile?.disponible ?? true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [disponible, setDisponible] = useState(
+    user?.profile?.disponible ?? true,
+  );
   const [selectedOffre, setSelectedOffre] = useState<any>(null);
   const [showCVUploader, setShowCVUploader] = useState(false);
   const [showProfileEditor, setShowProfileEditor] = useState(false);
   const [showActualites, setShowActualites] = useState(false);
 
-  const filteredOffres = offres.filter((offre) =>
-    offre.titre.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    offre.ecoleNom.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    offre.matiere.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredOffres = offres.filter(
+    (offre) =>
+      offre.titre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      offre.ecoleNom.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      offre.matiere.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const handlePostuler = (offre: any) => {
@@ -107,10 +122,10 @@ export default function DashboardEnseignant() {
         enseignantId: user.id,
         enseignantNom: user.name,
         enseignantEmail: user.email,
-        motivation: 'Candidature spontanée', // TODO: Add motivation form
-        statut: 'en_attente',
+        motivation: "Candidature spontanée", // TODO: Add motivation form
+        statut: "en_attente",
       });
-      alert('Votre candidature a été envoyée avec succès!');
+      alert("Votre candidature a été envoyée avec succès!");
       setSelectedOffre(null);
     }
   };
@@ -131,15 +146,15 @@ export default function DashboardEnseignant() {
               <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-300">
                 <span className="flex items-center gap-1">
                   <Briefcase className="w-4 h-4" />
-                  {user?.profile?.matiere || 'Matière'}
+                  {user?.profile?.matiere || "Matière"}
                 </span>
                 <span className="flex items-center gap-1">
                   <Clock className="w-4 h-4" />
-                  {user?.profile?.experience || 'Expérience'}
+                  {user?.profile?.experience || "Expérience"}
                 </span>
                 <span className="flex items-center gap-1">
-                  <Euro className="w-4 h-4" />
-                  {user?.profile?.tarif || 'Tarif'}
+                  <Tag className="w-4 h-4" />
+                  {user?.profile?.tarif || "Tarif"}
                 </span>
               </div>
             </div>
@@ -155,8 +170,8 @@ export default function DashboardEnseignant() {
                 onClick={() => setDisponible(!disponible)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                   disponible
-                    ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                    : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
+                    ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
+                    : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
                 }`}
               >
                 {disponible ? (
@@ -184,7 +199,7 @@ export default function DashboardEnseignant() {
                 type="text"
                 placeholder="Rechercher par école, poste ou matière..."
                 className="input"
-                style={{ paddingLeft: '2.5rem' }}
+                style={{ paddingLeft: "2.5rem" }}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -221,7 +236,9 @@ export default function DashboardEnseignant() {
                 <div className="flex justify-between items-start mb-3">
                   <div>
                     <h4 className="mb-1">{offre.titre}</h4>
-                    <p className="text-gray-600 dark:text-gray-300">{offre.ecoleNom}</p>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {offre.ecoleNom}
+                    </p>
                   </div>
                   <span className="badge badge-primary">{offre.matiere}</span>
                 </div>
@@ -238,13 +255,14 @@ export default function DashboardEnseignant() {
                     {offre.type}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Euro className="w-4 h-4" />
+                    <Tag className="w-4 h-4" />
                     {offre.tarif}
                   </span>
                 </div>
                 {offre.candidatures && offre.candidatures > 0 && (
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                    {offre.candidatures} candidature{offre.candidatures > 1 ? 's' : ''}
+                    {offre.candidatures} candidature
+                    {offre.candidatures > 1 ? "s" : ""}
                   </div>
                 )}
                 <button
@@ -299,31 +317,43 @@ export default function DashboardEnseignant() {
             <div className="space-y-4">
               <div>
                 <h4 className="mb-2">École</h4>
-                <p className="text-gray-600 dark:text-gray-300">{selectedOffre.ecoleNom}</p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {selectedOffre.ecoleNom}
+                </p>
               </div>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <h4 className="mb-2">Matière</h4>
-                  <span className="badge badge-primary">{selectedOffre.matiere}</span>
+                  <span className="badge badge-primary">
+                    {selectedOffre.matiere}
+                  </span>
                 </div>
                 <div>
                   <h4 className="mb-2">Niveau</h4>
-                  <p className="text-gray-600 dark:text-gray-300">{selectedOffre.niveau}</p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {selectedOffre.niveau}
+                  </p>
                 </div>
               </div>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <h4 className="mb-2">Type de contrat</h4>
-                  <p className="text-gray-600 dark:text-gray-300">{selectedOffre.type}</p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {selectedOffre.type}
+                  </p>
                 </div>
                 <div>
                   <h4 className="mb-2">Tarif</h4>
-                  <p className="text-gray-600 dark:text-gray-300">{selectedOffre.tarif}</p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {selectedOffre.tarif}
+                  </p>
                 </div>
               </div>
               <div>
                 <h4 className="mb-2">Description</h4>
-                <p className="text-gray-600 dark:text-gray-300">{selectedOffre.description}</p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {selectedOffre.description}
+                </p>
               </div>
               <button
                 className="btn-primary w-full"
@@ -337,8 +367,12 @@ export default function DashboardEnseignant() {
       )}
 
       {/* Modals */}
-      {showCVUploader && <CVUploader onClose={() => setShowCVUploader(false)} />}
-      {showProfileEditor && <ProfileEditor onClose={() => setShowProfileEditor(false)} />}
+      {showCVUploader && (
+        <CVUploader onClose={() => setShowCVUploader(false)} />
+      )}
+      {showProfileEditor && (
+        <ProfileEditor onClose={() => setShowProfileEditor(false)} />
+      )}
 
       {/* Actualités Modal */}
       {showActualites && (

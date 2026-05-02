@@ -1,5 +1,8 @@
 import { create } from 'zustand';
 
+const normalizeTarif = (tarif?: string): string | undefined =>
+  tarif?.replace(/€/g, "XOF");
+
 export interface User {
   id: number;
   name: string;
@@ -25,49 +28,49 @@ interface AuthState {
 const mockUsers = [
   {
     id: 1,
-    email: 'admin@vacataire.local',
-    password: 'password123',
-    name: 'Admin Principal',
-    role: 'admin' as const,
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=admin',
+    email: "admin@vacataire.local",
+    password: "password123",
+    name: "Admin Principal",
+    role: "admin" as const,
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=admin",
   },
   {
     id: 2,
-    email: 'enseignant1@vacataire.local',
-    password: 'password123',
-    name: 'Marie Dupont',
-    role: 'enseignant' as const,
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=marie',
+    email: "enseignant1@vacataire.local",
+    password: "password123",
+    name: "Marie Dupont",
+    role: "enseignant" as const,
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=marie",
     profile: {
-      matiere: 'Mathématiques',
-      experience: '5 ans',
+      matiere: "Mathématiques",
+      experience: "5 ans",
       disponible: true,
-      tarif: '45 €/h',
+      tarif: "45 Cfa/h",
     },
   },
   {
     id: 3,
-    email: 'ecole1@vacataire.local',
-    password: 'password123',
-    name: 'Lycée Victor Hugo',
-    role: 'ecole' as const,
-    avatar: 'https://api.dicebear.com/7.x/identicon/svg?seed=victor',
+    email: "ecole1@vacataire.local",
+    password: "password123",
+    name: "Lycée Victor Hugo",
+    role: "ecole" as const,
+    avatar: "https://api.dicebear.com/7.x/identicon/svg?seed=victor",
     profile: {
-      adresse: '15 rue de la République',
-      ville: 'Paris',
+      adresse: "15 rue de la République",
+      ville: "Paris",
       enBesoin: true,
     },
   },
   {
     id: 4,
-    email: 'parent1@vacataire.local',
-    password: 'password123',
-    name: 'Sophie Martin',
-    role: 'parent' as const,
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sophie',
+    email: "parent1@vacataire.local",
+    password: "password123",
+    name: "Sophie Martin",
+    role: "parent" as const,
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sophie",
     profile: {
-      ville: 'Lyon',
-      telephone: '+33 6 98 76 54 32',
+      ville: "Lyon",
+      telephone: "+33 6 98 76 54 32",
     },
   },
 ];
@@ -84,6 +87,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     if (token && userStr) {
       try {
         const user = JSON.parse(userStr);
+        if (user?.profile?.tarif) {
+          user.profile.tarif = normalizeTarif(user.profile.tarif);
+        }
         set({ user, token, isAuthenticated: true });
       } catch (error) {
         localStorage.removeItem('vacataire_token');
@@ -109,7 +115,9 @@ export const useAuthStore = create<AuthState>((set) => ({
       email: user.email,
       role: user.role,
       avatar: user.avatar,
-      profile: user.profile,
+      profile: user.profile
+        ? { ...user.profile, tarif: normalizeTarif(user.profile.tarif) }
+        : undefined,
     };
 
     localStorage.setItem('vacataire_token', token);
@@ -132,7 +140,9 @@ export const useAuthStore = create<AuthState>((set) => ({
       email: data.email,
       role: data.role,
       avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.name}`,
-      profile: data.profile || {},
+      profile: data.profile
+        ? { ...data.profile, tarif: normalizeTarif(data.profile.tarif) }
+        : {},
     };
 
     const token = `mock_token_${newUser.id}_${Date.now()}`;
@@ -171,10 +181,23 @@ export const useAuthStore = create<AuthState>((set) => ({
   updateUserProfile: (profile: Partial<User>) => {
     set((state) => {
       if (!state.user) return state;
-      
-      const updatedUser = { ...state.user, ...profile };
+
+      const updatedProfile = profile.profile
+        ? {
+            ...state.user.profile,
+            ...profile.profile,
+            tarif: normalizeTarif(profile.profile.tarif),
+          }
+        : state.user.profile;
+
+      const updatedUser = {
+        ...state.user,
+        ...profile,
+        profile: updatedProfile,
+      };
+
       localStorage.setItem('vacataire_user', JSON.stringify(updatedUser));
-      
+
       return { user: updatedUser };
     });
   },

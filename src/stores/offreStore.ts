@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { useNotificationStore } from './notificationStore';
 
+const normalizeTarif = (tarif: string): string => tarif.replace(/€/g, "XOF");
+
 export interface Offre {
   id: number;
   titre: string;
@@ -47,51 +49,54 @@ interface OffreState {
 const mockOffres: Offre[] = [
   {
     id: 1,
-    titre: 'Professeur de Mathématiques',
+    titre: "Professeur de Mathématiques",
     ecoleId: 3,
-    ecoleNom: 'Lycée Victor Hugo',
-    matiere: 'Mathématiques',
-    niveau: 'Terminale',
-    ville: 'Paris',
-    type: 'CDD - 6 mois',
-    dateDebut: '2026-02-01',
-    tarif: '45 €/h',
-    description: 'Nous recherchons un professeur de mathématiques pour des classes de Terminale S. Expérience requise dans la préparation au baccalauréat.',
-    statut: 'active',
-    createdAt: '2026-01-15',
+    ecoleNom: "Lycée Victor Hugo",
+    matiere: "Mathématiques",
+    niveau: "Terminale",
+    ville: "Paris",
+    type: "CDD - 6 mois",
+    dateDebut: "2026-02-01",
+    tarif: "45 Cfa/h",
+    description:
+      "Nous recherchons un professeur de mathématiques pour des classes de Terminale S. Expérience requise dans la préparation au baccalauréat.",
+    statut: "active",
+    createdAt: "2026-01-15",
     candidatures: 5,
   },
   {
     id: 2,
-    titre: 'Enseignant Physique-Chimie',
+    titre: "Enseignant Physique-Chimie",
     ecoleId: 3,
-    ecoleNom: 'Collège Jean Moulin',
-    matiere: 'Physique-Chimie',
-    niveau: '3ème',
-    ville: 'Lyon',
-    type: 'Vacation',
-    dateDebut: '2026-02-15',
-    dateFin: '2026-06-30',
-    tarif: '40 €/h',
-    description: 'Remplacement pour congé maternité, classes de 3ème. Début immédiat souhaité.',
-    statut: 'active',
-    createdAt: '2026-01-18',
+    ecoleNom: "Collège Jean Moulin",
+    matiere: "Physique-Chimie",
+    niveau: "3ème",
+    ville: "Lyon",
+    type: "Vacation",
+    dateDebut: "2026-02-15",
+    dateFin: "2026-06-30",
+    tarif: "40 Cfa/h",
+    description:
+      "Remplacement pour congé maternité, classes de 3ème. Début immédiat souhaité.",
+    statut: "active",
+    createdAt: "2026-01-18",
     candidatures: 3,
   },
   {
     id: 3,
-    titre: 'Prof de Français',
+    titre: "Prof de Français",
     ecoleId: 3,
-    ecoleNom: 'Lycée Pasteur',
-    matiere: 'Français',
-    niveau: 'Seconde',
-    ville: 'Marseille',
-    type: 'CDD - 3 mois',
-    dateDebut: '2026-03-01',
-    tarif: '42 €/h',
-    description: 'Enseignement du français pour classes de Seconde générale. Préparation aux épreuves anticipées.',
-    statut: 'active',
-    createdAt: '2026-01-20',
+    ecoleNom: "Lycée Pasteur",
+    matiere: "Français",
+    niveau: "Seconde",
+    ville: "Marseille",
+    type: "CDD - 3 mois",
+    dateDebut: "2026-03-01",
+    tarif: "42 Cfa/h",
+    description:
+      "Enseignement du français pour classes de Seconde générale. Préparation aux épreuves anticipées.",
+    statut: "active",
+    createdAt: "2026-01-20",
     candidatures: 7,
   },
 ];
@@ -126,16 +131,23 @@ export const useOffreStore = create<OffreState>((set, get) => ({
   addOffre: (offre) => {
     const newOffre: Offre = {
       ...offre,
-      id: Math.max(0, ...get().offres.map(o => o.id)) + 1,
-      createdAt: new Date().toISOString().split('T')[0],
+      tarif: normalizeTarif(offre.tarif),
+      id: Math.max(0, ...get().offres.map((o) => o.id)) + 1,
+      createdAt: new Date().toISOString().split("T")[0],
       candidatures: 0,
     };
     set((state) => ({ offres: [...state.offres, newOffre] }));
   },
 
   updateOffre: (id, offre) => {
+    const updatedOffre = offre.tarif
+      ? { ...offre, tarif: normalizeTarif(offre.tarif) }
+      : offre;
+
     set((state) => ({
-      offres: state.offres.map((o) => (o.id === id ? { ...o, ...offre } : o)),
+      offres: state.offres.map((o) =>
+        o.id === id ? { ...o, ...updatedOffre } : o,
+      ),
     }));
   },
 

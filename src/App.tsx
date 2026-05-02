@@ -7,6 +7,10 @@ import DashboardEnseignant from './pages/DashboardEnseignant';
 import DashboardEcole from './pages/DashboardEcole';
 import DashboardParent from './pages/DashboardParent';
 import DashboardAdmin from './pages/DashboardAdmin';
+import AdminUsersPage from "./pages/AdminUsersPage";
+import AdminTeachersPage from "./pages/AdminTeachersPage";
+import AdminSchoolsPage from "./pages/AdminSchoolsPage";
+import AdminApplicationsPage from "./pages/AdminApplicationsPage";
 import ForumPage from './pages/ForumPage';
 import MessagesPage from './pages/MessagesPage';
 import NotificationsPage from './pages/NotificationsPage';
@@ -53,14 +57,41 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={isAuthenticated ? <Navigate to={getDashboardRoute()} replace /> : <LandingPage />} />
-        <Route path="/login" element={isAuthenticated ? <Navigate to={getDashboardRoute()} replace /> : <LoginPage />} />
-        <Route path="/register" element={isAuthenticated ? <Navigate to={getDashboardRoute()} replace /> : <RegisterPage />} />
-        
+        <Route
+          path="/"
+          element={
+            isAuthenticated ? (
+              <Navigate to={getDashboardRoute()} replace />
+            ) : (
+              <LandingPage />
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            isAuthenticated ? (
+              <Navigate to={getDashboardRoute()} replace />
+            ) : (
+              <LoginPage />
+            )
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            isAuthenticated ? (
+              <Navigate to={getDashboardRoute()} replace />
+            ) : (
+              <RegisterPage />
+            )
+          }
+        />
+
         <Route
           path="/dashboard/enseignant"
           element={
-            <ProtectedRoute allowedRoles={['enseignant']}>
+            <ProtectedRoute allowedRoles={["enseignant"]}>
               <DashboardEnseignant />
             </ProtectedRoute>
           }
@@ -68,7 +99,7 @@ function App() {
         <Route
           path="/dashboard/ecole"
           element={
-            <ProtectedRoute allowedRoles={['ecole']}>
+            <ProtectedRoute allowedRoles={["ecole"]}>
               <DashboardEcole />
             </ProtectedRoute>
           }
@@ -76,7 +107,7 @@ function App() {
         <Route
           path="/dashboard/parent"
           element={
-            <ProtectedRoute allowedRoles={['parent']}>
+            <ProtectedRoute allowedRoles={["parent"]}>
               <DashboardParent />
             </ProtectedRoute>
           }
@@ -84,15 +115,47 @@ function App() {
         <Route
           path="/dashboard/admin"
           element={
-            <ProtectedRoute allowedRoles={['admin']}>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <DashboardAdmin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/admin/utilisateurs"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminUsersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/admin/enseignants"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminTeachersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/admin/ecoles"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminSchoolsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/admin/candidatures"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminApplicationsPage />
             </ProtectedRoute>
           }
         />
         <Route
           path="/forum"
           element={
-            <ProtectedRoute allowedRoles={['enseignant', 'ecole']}>
+            <ProtectedRoute allowedRoles={["enseignant", "ecole"]}>
               <ForumPage />
             </ProtectedRoute>
           }
@@ -100,7 +163,9 @@ function App() {
         <Route
           path="/messages"
           element={
-            <ProtectedRoute allowedRoles={['enseignant', 'ecole', 'parent', 'admin']}>
+            <ProtectedRoute
+              allowedRoles={["enseignant", "ecole", "parent", "admin"]}
+            >
               <MessagesPage />
             </ProtectedRoute>
           }
@@ -108,12 +173,14 @@ function App() {
         <Route
           path="/notifications"
           element={
-            <ProtectedRoute allowedRoles={['enseignant', 'ecole', 'parent', 'admin']}>
+            <ProtectedRoute
+              allowedRoles={["enseignant", "ecole", "parent", "admin"]}
+            >
               <NotificationsPage />
             </ProtectedRoute>
           }
         />
-        
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

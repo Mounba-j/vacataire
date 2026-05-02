@@ -86,10 +86,13 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
-          <h2>{editOffre ? 'Modifier l\'offre' : 'Publier une nouvelle offre'}</h2>
+          <h2>
+            {editOffre ? "Modifier l'offre" : "Publier une nouvelle offre"}
+          </h2>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            aria-label="Fermer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -106,7 +109,9 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
               className="input"
               placeholder="Ex: Professeur de Mathématiques"
               value={formData.titre}
-              onChange={(e) => setFormData({ ...formData, titre: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, titre: e.target.value })
+              }
               required
             />
           </div>
@@ -119,8 +124,11 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
               </label>
               <select
                 className="input"
+                title="Matière"
                 value={formData.matiere}
-                onChange={(e) => setFormData({ ...formData, matiere: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, matiere: e.target.value })
+                }
                 required
               >
                 <option value="">Sélectionner...</option>
@@ -139,8 +147,11 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
               </label>
               <select
                 className="input"
+                title="Niveau"
                 value={formData.niveau}
-                onChange={(e) => setFormData({ ...formData, niveau: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, niveau: e.target.value })
+                }
                 required
               >
                 <option value="">Sélectionner...</option>
@@ -161,8 +172,11 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
               </label>
               <select
                 className="input"
+                title="Type de contrat"
                 value={formData.type}
-                onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, type: e.target.value })
+                }
                 required
               >
                 <option value="">Sélectionner...</option>
@@ -184,7 +198,9 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
                 className="input"
                 placeholder="Paris"
                 value={formData.ville}
-                onChange={(e) => setFormData({ ...formData, ville: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, ville: e.target.value })
+                }
                 required
               />
             </div>
@@ -199,8 +215,11 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
               <input
                 type="date"
                 className="input"
+                placeholder="Sélectionner une date"
                 value={formData.dateDebut}
-                onChange={(e) => setFormData({ ...formData, dateDebut: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, dateDebut: e.target.value })
+                }
                 required
               />
             </div>
@@ -213,8 +232,11 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
               <input
                 type="date"
                 className="input"
+                placeholder="Sélectionner une date"
                 value={formData.dateFin}
-                onChange={(e) => setFormData({ ...formData, dateFin: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, dateFin: e.target.value })
+                }
               />
             </div>
           </div>
@@ -227,9 +249,11 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
             <input
               type="text"
               className="input"
-              placeholder="Ex: 45 €/h"
+              placeholder="Ex: 45 Cfa/h"
               value={formData.tarif}
-              onChange={(e) => setFormData({ ...formData, tarif: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, tarif: e.target.value })
+              }
               required
             />
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -247,7 +271,9 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
               rows={5}
               placeholder="Décrivez le poste, les responsabilités, les qualifications requises..."
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               required
             />
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -256,12 +282,19 @@ export default function OffreForm({ onClose, editOffre }: OffreFormProps) {
           </div>
 
           <div className="flex gap-3 pt-4">
-            <button type="button" onClick={onClose} className="btn-secondary flex-1">
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn-secondary flex-1"
+            >
               Annuler
             </button>
-            <button type="submit" className="btn-primary flex-1 flex items-center justify-center gap-2">
+            <button
+              type="submit"
+              className="btn-primary flex-1 flex items-center justify-center gap-2"
+            >
               <Save className="w-5 h-5" />
-              {editOffre ? 'Enregistrer' : 'Publier l\'offre'}
+              {editOffre ? "Enregistrer" : "Publier l'offre"}
             </button>
           </div>
         </form>

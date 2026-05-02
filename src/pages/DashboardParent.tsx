@@ -1,11 +1,21 @@
-import { useState } from 'react';
-import { Search, Newspaper, MapPin, BookOpen, Euro, Clock, Mail, Phone, Star, FileText } from 'lucide-react';
-import { useAuthStore } from '../stores/authStore';
-import DashboardLayout from '../components/DashboardLayout';
-import CVViewer from '../components/CVViewer';
-import ContactEnseignantModal from '../components/ContactEnseignantModal';
-import { useCVStore } from '../stores/cvStore';
-import { useActualiteStore } from '../stores/actualiteStore';
+import { useState } from "react";
+import {
+  Search,
+  Newspaper,
+  MapPin,
+  BookOpen,
+  Clock,
+  Mail,
+  Phone,
+  Star,
+  FileText,
+} from "lucide-react";
+import { useAuthStore } from "../stores/authStore";
+import DashboardLayout from "../components/DashboardLayout";
+import CVViewer from "../components/CVViewer";
+import ContactEnseignantModal from "../components/ContactEnseignantModal";
+import { useCVStore } from "../stores/cvStore";
+import { useActualiteStore } from "../stores/actualiteStore";
 
 interface Enseignant {
   id: number;
@@ -26,107 +36,117 @@ interface Enseignant {
 const mockEnseignants: Enseignant[] = [
   {
     id: 1,
-    nom: 'Marie Dupont',
-    matiere: 'Mathématiques',
-    experience: '5 ans',
-    ville: 'Paris',
+    nom: "Marie Dupont",
+    matiere: "Mathématiques",
+    experience: "5 ans",
+    ville: "Paris",
     disponible: true,
-    tarif: '45 €/h',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=marie',
-    email: 'marie.dupont@email.com',
-    telephone: '+33 6 12 34 56 78',
+    tarif: "45 Cfa/h",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=marie",
+    email: "marie.dupont@email.com",
+    telephone: "+33 6 12 34 56 78",
     rating: 4.8,
-    niveaux: ['Collège', 'Lycée'],
+    niveaux: ["Collège", "Lycée"],
     bio: "Professeure de mathématiques passionnée avec 5 ans d'expérience. Spécialisée dans la préparation au bac.",
   },
   {
     id: 2,
-    nom: 'Pierre Martin',
-    matiere: 'Physique-Chimie',
-    experience: '8 ans',
-    ville: 'Lyon',
+    nom: "Pierre Martin",
+    matiere: "Physique-Chimie",
+    experience: "8 ans",
+    ville: "Lyon",
     disponible: true,
-    tarif: '50 €/h',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=pierre',
-    email: 'pierre.martin@email.com',
-    telephone: '+33 6 23 45 67 89',
+    tarif: "50 Cfa/h",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=pierre",
+    email: "pierre.martin@email.com",
+    telephone: "+33 6 23 45 67 89",
     rating: 4.9,
-    niveaux: ['Lycée'],
-    bio: 'Enseignant expérimenté en physique-chimie. Méthode pédagogique adaptée à chaque élève.',
+    niveaux: ["Lycée"],
+    bio: "Enseignant expérimenté en physique-chimie. Méthode pédagogique adaptée à chaque élève.",
   },
   {
     id: 3,
-    nom: 'Sophie Bernard',
-    matiere: 'Français',
-    experience: '3 ans',
-    ville: 'Marseille',
+    nom: "Sophie Bernard",
+    matiere: "Français",
+    experience: "3 ans",
+    ville: "Marseille",
     disponible: true,
-    tarif: '42 €/h',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sophie',
-    email: 'sophie.bernard@email.com',
-    telephone: '+33 6 34 56 78 90',
+    tarif: "42 Cfa/h",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sophie",
+    email: "sophie.bernard@email.com",
+    telephone: "+33 6 34 56 78 90",
     rating: 4.7,
-    niveaux: ['Collège', 'Lycée'],
-    bio: 'Professeure de français dynamique. Aide aux devoirs et préparation au brevet.',
+    niveaux: ["Collège", "Lycée"],
+    bio: "Professeure de français dynamique. Aide aux devoirs et préparation au brevet.",
   },
   {
     id: 4,
-    nom: 'Jean Dubois',
-    matiere: 'Anglais',
-    experience: '6 ans',
-    ville: 'Paris',
+    nom: "Jean Dubois",
+    matiere: "Anglais",
+    experience: "6 ans",
+    ville: "Paris",
     disponible: true,
-    tarif: '48 €/h',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=jean',
-    email: 'jean.dubois@email.com',
-    telephone: '+33 6 45 67 89 01',
+    tarif: "48 Cfa/h",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=jean",
+    email: "jean.dubois@email.com",
+    telephone: "+33 6 45 67 89 01",
     rating: 4.6,
-    niveaux: ['Collège', 'Lycée'],
+    niveaux: ["Collège", "Lycée"],
     bio: "Professeur d'anglais bilingue. Préparation TOEFL et cours de conversation.",
   },
   {
     id: 5,
-    nom: 'Claire Rousseau',
-    matiere: 'Histoire-Géographie',
-    experience: '4 ans',
-    ville: 'Lyon',
+    nom: "Claire Rousseau",
+    matiere: "Histoire-Géographie",
+    experience: "4 ans",
+    ville: "Lyon",
     disponible: true,
-    tarif: '43 €/h',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=claire',
-    email: 'claire.rousseau@email.com',
-    telephone: '+33 6 56 78 90 12',
+    tarif: "43 Cfa/h",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=claire",
+    email: "claire.rousseau@email.com",
+    telephone: "+33 6 56 78 90 12",
     rating: 4.5,
-    niveaux: ['Collège', 'Lycée'],
+    niveaux: ["Collège", "Lycée"],
     bio: "Enseignante passionnée d'histoire et de géographie. Cours vivants et interactifs.",
   },
   {
     id: 6,
-    nom: 'Thomas Petit',
-    matiere: 'Mathématiques',
-    experience: '7 ans',
-    ville: 'Marseille',
+    nom: "Thomas Petit",
+    matiere: "Mathématiques",
+    experience: "7 ans",
+    ville: "Marseille",
     disponible: true,
-    tarif: '47 €/h',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=thomas',
-    email: 'thomas.petit@email.com',
-    telephone: '+33 6 67 89 01 23',
+    tarif: "47 Cfa/h",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=thomas",
+    email: "thomas.petit@email.com",
+    telephone: "+33 6 67 89 01 23",
     rating: 4.9,
-    niveaux: ['Lycée'],
-    bio: 'Professeur de mathématiques spécialisé dans les classes préparatoires.',
+    niveaux: ["Lycée"],
+    bio: "Professeur de mathématiques spécialisé dans les classes préparatoires.",
   },
 ];
 
-const matieres = ['Toutes', 'Mathématiques', 'Physique-Chimie', 'Français', 'Anglais', 'Histoire-Géographie'];
+const matieres = [
+  "Toutes",
+  "Mathématiques",
+  "Physique-Chimie",
+  "Français",
+  "Anglais",
+  "Histoire-Géographie",
+];
 
 export default function DashboardParent() {
   const { user } = useAuthStore();
   const { getActualitesByRole, incrementVues } = useActualiteStore();
   const { getCVByEnseignant } = useCVStore();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedMatiere, setSelectedMatiere] = useState('Toutes');
-  const [selectedEnseignant, setSelectedEnseignant] = useState<Enseignant | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedMatiere, setSelectedMatiere] = useState("Toutes");
+  const [selectedEnseignant, setSelectedEnseignant] =
+    useState<Enseignant | null>(null);
   const [showCVViewer, setShowCVViewer] = useState<number | null>(null);
-  const [showContactModal, setShowContactModal] = useState<Enseignant | null>(null);
+  const [showContactModal, setShowContactModal] = useState<Enseignant | null>(
+    null,
+  );
 
   const filteredEnseignants = mockEnseignants
     .filter((ens) => {
@@ -134,7 +154,8 @@ export default function DashboardParent() {
         ens.nom.toLowerCase().includes(searchQuery.toLowerCase()) ||
         ens.matiere.toLowerCase().includes(searchQuery.toLowerCase()) ||
         ens.ville.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesMatiere = selectedMatiere === 'Toutes' || ens.matiere === selectedMatiere;
+      const matchesMatiere =
+        selectedMatiere === "Toutes" || ens.matiere === selectedMatiere;
       return matchesSearch && matchesMatiere;
     })
     .sort((a, b) => {
@@ -173,11 +194,11 @@ export default function DashboardParent() {
               <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-300">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-4 h-4" />
-                  {user?.profile?.ville || 'Ville'}
+                  {user?.profile?.ville || "Ville"}
                 </span>
                 <span className="flex items-center gap-1">
                   <Phone className="w-4 h-4" />
-                  {user?.profile?.telephone || 'Téléphone'}
+                  {user?.profile?.telephone || "Téléphone"}
                 </span>
               </div>
             </div>
@@ -192,7 +213,7 @@ export default function DashboardParent() {
               <input
                 type="text"
                 placeholder="Chercher par nom, matière ou ville..."
-                className="input" style={{ paddingLeft: '2.5rem' }}
+                className="input pl-10"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -214,8 +235,8 @@ export default function DashboardParent() {
                 onClick={() => setSelectedMatiere(matiere)}
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${
                   selectedMatiere === matiere
-                    ? 'bg-[#E63946] text-white'
-                    : 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600'
+                    ? "bg-[#E63946] text-white"
+                    : "bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600"
                 }`}
               >
                 {matiere}
@@ -231,10 +252,7 @@ export default function DashboardParent() {
           </h3>
           <div className="space-y-4">
             {filteredEnseignants.map((ens) => (
-              <div
-                key={ens.id}
-                className="card hover:shadow-lg transition-all"
-              >
+              <div key={ens.id} className="card hover:shadow-lg transition-all">
                 <div className="flex flex-col md:flex-row gap-4">
                   <img
                     src={ens.avatar}
@@ -246,7 +264,9 @@ export default function DashboardParent() {
                       <div>
                         <h4 className="mb-1">{ens.nom}</h4>
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="badge badge-primary">{ens.matiere}</span>
+                          <span className="badge badge-primary">
+                            {ens.matiere}
+                          </span>
                           <div className="flex items-center gap-1 text-sm">
                             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                             <span className="font-medium">{ens.rating}</span>
@@ -254,8 +274,12 @@ export default function DashboardParent() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-semibold text-[#E63946] mb-1">{ens.tarif}</div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">par heure</span>
+                        <div className="text-2xl font-semibold text-[#E63946] mb-1">
+                          {ens.tarif}
+                        </div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                          par heure
+                        </span>
                       </div>
                     </div>
                     <p className="text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
@@ -272,19 +296,19 @@ export default function DashboardParent() {
                       </span>
                       <span className="flex items-center gap-1">
                         <BookOpen className="w-4 h-4" />
-                        {ens.niveaux.join(', ')}
+                        {ens.niveaux.join(", ")}
                       </span>
                     </div>
                   </div>
                   <div className="flex md:flex-col gap-2">
-                    <button 
+                    <button
                       onClick={() => handleViewCV(ens.id)}
                       className="btn-secondary flex-1 md:flex-none flex items-center justify-center gap-2"
                     >
                       <FileText className="w-4 h-4" />
                       Voir le CV
                     </button>
-                    <button 
+                    <button
                       onClick={() => handleContactEnseignant(ens)}
                       className="btn-primary flex-1 md:flex-none"
                     >
@@ -300,10 +324,7 @@ export default function DashboardParent() {
 
       {/* CV Viewer Modal */}
       {cvToView && (
-        <CVViewer
-          cv={cvToView}
-          onClose={() => setShowCVViewer(null)}
-        />
+        <CVViewer cv={cvToView} onClose={() => setShowCVViewer(null)} />
       )}
 
       {/* Contact Modal */}
