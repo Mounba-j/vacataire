@@ -32,6 +32,7 @@ export default function CVViewer({ cv, onClose }: CVViewerProps) {
             <button
               onClick={onClose}
               className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+              aria-label="Fermer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -46,7 +47,9 @@ export default function CVViewer({ cv, onClose }: CVViewerProps) {
             />
             <div className="flex-1">
               <h2 className="mb-2">{cv.enseignantNom}</h2>
-              <p className="text-xl text-[#E63946] font-medium mb-4">{cv.matiere}</p>
+              <p className="text-xl text-[#E63946] font-medium mb-4">
+                {cv.matiere}
+              </p>
               <div className="grid md:grid-cols-2 gap-3 text-sm">
                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                   <Mail className="w-4 h-4" />
@@ -177,7 +180,9 @@ export default function CVViewer({ cv, onClose }: CVViewerProps) {
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
                 Tarif horaire
               </p>
-              <p className="text-2xl font-semibold text-[#E63946]">{cv.tarif}</p>
+              <p className="text-2xl font-semibold text-[#E63946]">
+                {cv.tarif}
+              </p>
             </div>
             <div className="text-right">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
@@ -185,10 +190,10 @@ export default function CVViewer({ cv, onClose }: CVViewerProps) {
               </p>
               <span
                 className={`badge ${
-                  cv.disponible ? 'badge-success' : 'badge-error'
+                  cv.disponible ? "badge-success" : "badge-error"
                 }`}
               >
-                {cv.disponible ? 'Disponible' : 'Indisponible'}
+                {cv.disponible ? "Disponible" : "Indisponible"}
               </span>
             </div>
           </div>

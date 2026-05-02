@@ -153,7 +153,7 @@ export default function NotificationDropdown() {
         <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
           <span className="absolute top-0 right-0 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
-            {unreadCount > 9 ? '9+' : unreadCount}
+            {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
       </button>
@@ -184,6 +184,7 @@ export default function NotificationDropdown() {
               <button
                 onClick={() => setShowDropdown(false)}
                 className="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-700"
+                aria-label="Fermer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -206,16 +207,22 @@ export default function NotificationDropdown() {
                     key={notification.id}
                     onClick={() => handleNotificationClick(notification)}
                     className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer ${
-                      !notification.lue ? 'bg-blue-50/50 dark:bg-blue-900/10' : ''
+                      !notification.lue
+                        ? "bg-blue-50/50 dark:bg-blue-900/10"
+                        : ""
                     }`}
                   >
                     <div className="flex gap-3">
-                      <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${getNotificationColor(notification.type)}`}>
+                      <div
+                        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${getNotificationColor(notification.type)}`}
+                      >
                         {getNotificationIcon(notification.type)}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
-                          <p className={`text-sm font-medium ${!notification.lue ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}>
+                          <p
+                            className={`text-sm font-medium ${!notification.lue ? "text-gray-900 dark:text-white" : "text-gray-700 dark:text-gray-300"}`}
+                          >
                             {notification.titre}
                           </p>
                           {!notification.lue && (
@@ -230,7 +237,9 @@ export default function NotificationDropdown() {
                             {formatDate(notification.dateCreation)}
                           </span>
                           <button
-                            onClick={(e) => handleDeleteNotification(e, notification.id)}
+                            onClick={(e) =>
+                              handleDeleteNotification(e, notification.id)
+                            }
                             className="p-1 rounded hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors"
                             title="Supprimer"
                           >
@@ -250,7 +259,7 @@ export default function NotificationDropdown() {
             <div className="border-t border-gray-200 dark:border-gray-700 p-3">
               <button
                 onClick={() => {
-                  navigate('/notifications');
+                  navigate("/notifications");
                   setShowDropdown(false);
                 }}
                 className="w-full text-center text-sm text-[#E63946] hover:underline flex items-center justify-center gap-1"

@@ -58,6 +58,7 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
             <button
               onClick={onClose}
               className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+              aria-label="Fermer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -74,6 +75,7 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
               <button
                 onClick={() => setShowPhotoUploader(true)}
                 className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                aria-label="Changer la photo"
               >
                 <Camera className="w-6 h-6 text-white" />
               </button>
@@ -97,7 +99,9 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
                   type="text"
                   className="input"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -111,7 +115,9 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
                   type="email"
                   className="input"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -128,7 +134,9 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
                   className="input"
                   placeholder="+33 6 12 34 56 78"
                   value={formData.telephone}
-                  onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, telephone: e.target.value })
+                  }
                 />
               </div>
 
@@ -142,12 +150,14 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
                   className="input"
                   placeholder="Paris"
                   value={formData.ville}
-                  onChange={(e) => setFormData({ ...formData, ville: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, ville: e.target.value })
+                  }
                 />
               </div>
             </div>
 
-            {user?.role === 'enseignant' && (
+            {user?.role === "enseignant" && (
               <>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
@@ -158,14 +168,18 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
                     <select
                       className="input"
                       value={formData.matiere}
-                      onChange={(e) => setFormData({ ...formData, matiere: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, matiere: e.target.value })
+                      }
                     >
                       <option value="">Sélectionner...</option>
                       <option value="Mathématiques">Mathématiques</option>
                       <option value="Physique-Chimie">Physique-Chimie</option>
                       <option value="Français">Français</option>
                       <option value="Anglais">Anglais</option>
-                      <option value="Histoire-Géographie">Histoire-Géographie</option>
+                      <option value="Histoire-Géographie">
+                        Histoire-Géographie
+                      </option>
                       <option value="SVT">SVT</option>
                       <option value="Philosophie">Philosophie</option>
                     </select>
@@ -179,9 +193,11 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
                     <input
                       type="text"
                       className="input"
-                      placeholder="Ex: 45 €/h"
+                      placeholder="Ex: 45 Cfa/h"
                       value={formData.tarif}
-                      onChange={(e) => setFormData({ ...formData, tarif: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, tarif: e.target.value })
+                      }
                     />
                   </div>
                 </div>
@@ -196,7 +212,9 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
                     className="input"
                     placeholder="5 ans"
                     value={formData.experience}
-                    onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, experience: e.target.value })
+                    }
                   />
                 </div>
 
@@ -210,17 +228,26 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
                     rows={4}
                     placeholder="Parlez de votre parcours, votre méthode pédagogique..."
                     value={formData.bio}
-                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, bio: e.target.value })
+                    }
                   />
                 </div>
               </>
             )}
 
             <div className="flex gap-3 pt-4">
-              <button type="button" onClick={onClose} className="btn-secondary flex-1">
+              <button
+                type="button"
+                onClick={onClose}
+                className="btn-secondary flex-1"
+              >
                 Annuler
               </button>
-              <button type="submit" className="btn-primary flex-1 flex items-center justify-center gap-2">
+              <button
+                type="submit"
+                className="btn-primary flex-1 flex items-center justify-center gap-2"
+              >
                 <Save className="w-5 h-5" />
                 Enregistrer
               </button>

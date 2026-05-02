@@ -67,11 +67,11 @@ export default function ForumPost({ post }: ForumPostProps) {
             <div>
               <h4 className="mb-1">{post.auteurNom}</h4>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                {post.auteurRole === 'enseignant' ? 'Enseignant' : 'École'} •{' '}
-                {new Date(post.datePublication).toLocaleDateString('fr-FR', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
+                {post.auteurRole === "enseignant" ? "Enseignant" : "École"} •{" "}
+                {new Date(post.datePublication).toLocaleDateString("fr-FR", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
                 })}
               </p>
             </div>
@@ -79,6 +79,7 @@ export default function ForumPost({ post }: ForumPostProps) {
               <button
                 onClick={handleDeletePost}
                 className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors text-red-600 dark:text-red-400"
+                aria-label="Supprimer le post"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -116,11 +117,11 @@ export default function ForumPost({ post }: ForumPostProps) {
           onClick={handleLikePost}
           className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
             isLikedByUser
-              ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'
-              : 'hover:bg-gray-100 dark:hover:bg-slate-700'
+              ? "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
+              : "hover:bg-gray-100 dark:hover:bg-slate-700"
           }`}
         >
-          <Heart className={`w-5 h-5 ${isLikedByUser ? 'fill-current' : ''}`} />
+          <Heart className={`w-5 h-5 ${isLikedByUser ? "fill-current" : ""}`} />
           <span className="text-sm font-medium">{post.likes}</span>
         </button>
 
@@ -138,7 +139,9 @@ export default function ForumPost({ post }: ForumPostProps) {
         <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 space-y-4">
           {/* Liste des réponses */}
           {post.reponses.map((reponse) => {
-            const isReponselikedByUser = user ? reponse.likedBy.includes(user.id) : false;
+            const isReponselikedByUser = user
+              ? reponse.likedBy.includes(user.id)
+              : false;
 
             return (
               <div key={reponse.id} className="flex gap-3">
@@ -150,16 +153,24 @@ export default function ForumPost({ post }: ForumPostProps) {
                 <div className="flex-1 bg-gray-50 dark:bg-slate-800 rounded-lg p-3">
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h5 className="text-sm font-medium mb-1">{reponse.auteurNom}</h5>
+                      <h5 className="text-sm font-medium mb-1">
+                        {reponse.auteurNom}
+                      </h5>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {reponse.auteurRole === 'enseignant' ? 'Enseignant' : 'École'} •{' '}
-                        {new Date(reponse.datePublication).toLocaleDateString('fr-FR')}
+                        {reponse.auteurRole === "enseignant"
+                          ? "Enseignant"
+                          : "École"}{" "}
+                        •{" "}
+                        {new Date(reponse.datePublication).toLocaleDateString(
+                          "fr-FR",
+                        )}
                       </p>
                     </div>
                     {user && user.id === reponse.auteurId && (
                       <button
                         onClick={() => handleDeleteReponse(reponse.id)}
                         className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors text-red-600 dark:text-red-400"
+                        aria-label="Supprimer la réponse"
                       >
                         <Trash2 className="w-3 h-3" />
                       </button>
@@ -172,11 +183,13 @@ export default function ForumPost({ post }: ForumPostProps) {
                     onClick={() => handleLikeReponse(reponse.id)}
                     className={`flex items-center gap-1 text-xs ${
                       isReponselikedByUser
-                        ? 'text-red-600 dark:text-red-400'
-                        : 'text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400'
+                        ? "text-red-600 dark:text-red-400"
+                        : "text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400"
                     }`}
                   >
-                    <Heart className={`w-4 h-4 ${isReponselikedByUser ? 'fill-current' : ''}`} />
+                    <Heart
+                      className={`w-4 h-4 ${isReponselikedByUser ? "fill-current" : ""}`}
+                    />
                     {reponse.likes > 0 && <span>{reponse.likes}</span>}
                   </button>
                 </div>

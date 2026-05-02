@@ -29,7 +29,8 @@ export default function AdminForumModeration() {
         <div className="flex items-center gap-2 p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg">
           <AlertTriangle className="w-5 h-5 text-orange-600 dark:text-orange-400" />
           <p className="text-sm text-orange-800 dark:text-orange-300">
-            En tant qu'administrateur, vous pouvez modérer tous les posts et réponses du forum.
+            En tant qu'administrateur, vous pouvez modérer tous les posts et
+            réponses du forum.
           </p>
         </div>
 
@@ -47,7 +48,11 @@ export default function AdminForumModeration() {
                     <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
                       <span>Par {post.auteurNom}</span>
                       <span>•</span>
-                      <span>{new Date(post.datePublication).toLocaleDateString('fr-FR')}</span>
+                      <span>
+                        {new Date(post.datePublication).toLocaleDateString(
+                          "fr-FR",
+                        )}
+                      </span>
                       <span>•</span>
                       <span>{post.likes} likes</span>
                       <span>•</span>
@@ -92,7 +97,10 @@ export default function AdminForumModeration() {
           >
             <div className="flex justify-between items-start mb-6">
               <h2>Modération du post</h2>
-              <button onClick={() => setSelectedPost(null)} className="text-gray-500">
+              <button
+                onClick={() => setSelectedPost(null)}
+                className="text-gray-500"
+              >
                 ✕
               </button>
             </div>
@@ -109,7 +117,9 @@ export default function AdminForumModeration() {
                   <div className="flex-1">
                     <h4>{selectedPost.auteurNom}</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
-                      {new Date(selectedPost.datePublication).toLocaleDateString('fr-FR')}
+                      {new Date(
+                        selectedPost.datePublication,
+                      ).toLocaleDateString("fr-FR")}
                     </p>
                   </div>
                 </div>
@@ -126,7 +136,9 @@ export default function AdminForumModeration() {
               {/* Réponses */}
               {selectedPost.reponses.length > 0 && (
                 <div>
-                  <h4 className="mb-3">Réponses ({selectedPost.reponses.length})</h4>
+                  <h4 className="mb-3">
+                    Réponses ({selectedPost.reponses.length})
+                  </h4>
                   <div className="space-y-3">
                     {selectedPost.reponses.map((reponse: any) => (
                       <div
@@ -141,15 +153,22 @@ export default function AdminForumModeration() {
                               className="w-8 h-8 rounded-full"
                             />
                             <div>
-                              <p className="font-medium text-sm">{reponse.auteurNom}</p>
+                              <p className="font-medium text-sm">
+                                {reponse.auteurNom}
+                              </p>
                               <p className="text-xs text-gray-500 dark:text-gray-400">
-                                {new Date(reponse.datePublication).toLocaleDateString('fr-FR')}
+                                {new Date(
+                                  reponse.datePublication,
+                                ).toLocaleDateString("fr-FR")}
                               </p>
                             </div>
                           </div>
                           <button
-                            onClick={() => handleDeleteReponse(selectedPost.id, reponse.id)}
+                            onClick={() =>
+                              handleDeleteReponse(selectedPost.id, reponse.id)
+                            }
                             className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors text-red-600"
+                            aria-label="Supprimer la réponse"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>

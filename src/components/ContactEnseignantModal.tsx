@@ -85,6 +85,7 @@ export default function ContactEnseignantModal({ enseignant, onClose }: ContactE
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            aria-label="Fermer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -119,7 +120,7 @@ export default function ContactEnseignantModal({ enseignant, onClose }: ContactE
             <input
               type="text"
               className="input"
-              value={user?.name || ''}
+              value={user?.name || ""}
               disabled
             />
           </div>
@@ -134,7 +135,9 @@ export default function ContactEnseignantModal({ enseignant, onClose }: ContactE
               className="input"
               placeholder="Ex: Demande de renseignements"
               value={formData.objet}
-              onChange={(e) => setFormData({ ...formData, objet: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, objet: e.target.value })
+              }
               maxLength={100}
             />
           </div>
@@ -149,7 +152,9 @@ export default function ContactEnseignantModal({ enseignant, onClose }: ContactE
               rows={6}
               placeholder="Écrivez votre message..."
               value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, message: e.target.value })
+              }
               required
               maxLength={1000}
             />
@@ -160,8 +165,9 @@ export default function ContactEnseignantModal({ enseignant, onClose }: ContactE
 
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
             <p className="text-sm text-blue-800 dark:text-blue-300">
-              <strong>Note:</strong> Votre message sera envoyé dans votre boîte de messagerie privée. 
-              Vous pourrez continuer la conversation dans la section "Messages".
+              <strong>Note:</strong> Votre message sera envoyé dans votre boîte
+              de messagerie privée. Vous pourrez continuer la conversation dans
+              la section "Messages".
             </p>
           </div>
 
@@ -180,7 +186,7 @@ export default function ContactEnseignantModal({ enseignant, onClose }: ContactE
               disabled={isSending || !formData.message.trim()}
             >
               <Send className="w-5 h-5" />
-              {isSending ? 'Envoi...' : 'Envoyer le message'}
+              {isSending ? "Envoi..." : "Envoyer le message"}
             </button>
           </div>
         </form>

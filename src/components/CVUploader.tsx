@@ -75,6 +75,7 @@ export default function CVUploader({ onClose }: CVUploaderProps) {
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            aria-label="Fermer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -90,7 +91,9 @@ export default function CVUploader({ onClose }: CVUploaderProps) {
                   <h4 className="text-sm font-medium text-green-800 dark:text-green-300">
                     CV actuel
                   </h4>
-                  <p className="text-sm text-green-600 dark:text-green-400">{currentCV}</p>
+                  <p className="text-sm text-green-600 dark:text-green-400">
+                    {currentCV}
+                  </p>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -150,6 +153,7 @@ export default function CVUploader({ onClose }: CVUploaderProps) {
               <button
                 onClick={() => setSelectedFile(null)}
                 className="p-2 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg transition-colors"
+                aria-label="Supprimer le fichier"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -174,17 +178,11 @@ export default function CVUploader({ onClose }: CVUploaderProps) {
 
           {/* Actions */}
           <div className="flex gap-3 pt-4">
-            <button
-              onClick={onClose}
-              className="btn-secondary flex-1"
-            >
+            <button onClick={onClose} className="btn-secondary flex-1">
               Fermer
             </button>
             {selectedFile && !isUploading && (
-              <button
-                onClick={handleUpload}
-                className="btn-primary flex-1"
-              >
+              <button onClick={handleUpload} className="btn-primary flex-1">
                 Télécharger
               </button>
             )}
